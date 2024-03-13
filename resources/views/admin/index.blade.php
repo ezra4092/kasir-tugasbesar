@@ -17,6 +17,7 @@
                             <th>No</th>
                             <th>Tanggal</th>
                             <th>Nama Barang</th>
+                            <th>Harga</th>
                             <th>Jumlah</th>
                             <th>Aksi</th>
                         </tr>
@@ -26,8 +27,9 @@
                         @foreach ($stok as $row)
                         <tr>
                             <td width="5%">{{$no++}}</td>
-                            <td>{{$row->tgl}}</td>
+                            <td>{{$row->tgl_bayar}}</td>
                             <td>{{$row->nama_barang}}</td>
+                            <td>Rp. {{ number_format($row->harga, 0, ',', '.') }}</td>
                             <td>{{$row->jumlah}}</td>
                             <td class="row" width="80%">
                                 <button class="btn btn-sm btn-warning fa-solid fa-pen-to-square mr-2" data-toggle="modal" data-target="#editData{{$row->id}}"></button>
@@ -52,8 +54,12 @@
                                             @csrf
                                             @method('PUT')
                                             <div class="form-group">
-                                                <label for="tgl">Tanggal</label>
-                                                <input type="date" class="form-control" id="tgl" name="tgl" value="{{$row->tgl}}">
+                                                <label for="tgl_bayar">Tanggal</label>
+                                                <input type="date" class="form-control" id="tgl_bayar" name="tgl_bayar" value="{{$row->tgl_bayar}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nama_barang">Nama Barang</label>
+                                                <input type="input" class="form-control" id="nama_barang" name="nama_barang" value="{{$row->nama_barang}}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="nama_barang">Nama Barang</label>
@@ -94,12 +100,16 @@
                 <form action="{{url('stok/save')}}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="tgl">Tanggal</label>
-                        <input type="date" class="form-control" id="tgl" name="tgl">
+                        <label for="tgl_bayar">Tanggal</label>
+                        <input type="date" class="form-control" id="tgl_bayar" name="tgl_bayar">
                     </div>
                     <div class="form-group">
                         <label for="nama_barang">Nama Barang</label>
                         <input type="input" class="form-control" id="nama_barang" name="nama_barang">
+                    </div>
+                    <div class="form-group">
+                        <label for="harga">Harga</label>
+                        <input type="number" class="form-control" id="harga" name="harga">
                     </div>
                     <div class="form-group">
                         <label for="jumlah">Jumlah</label>

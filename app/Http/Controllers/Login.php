@@ -36,7 +36,7 @@ class Login extends Controller
             } elseif ($user->level == 'petugas'){
                 return redirect()->intended('petugas');
             } else {
-                return redirect()->to(url('/'))->with(['error' => true]);
+                return redirect()->to(url('/stok'))->with(['error' => true]);
             }
         }
         return redirect()->to(url('/'))->with(['error' => true]);
@@ -49,21 +49,6 @@ class Login extends Controller
         return redirect('/');
     }
 
-    public function edit($id){
-        $data = [
-            'title' => 'Kasir Dapur Bunda',
-            'active' => 'Kasir',
-            'kasir' => User::find($id)
-        ];
-        return view('reset', $data);
-    }
-
-    public function reset(Request $request, $id) {
-        $pembayaran = User::find($id);
-        $pembayaran->update($request->except(['_token'], '_method'));
-
-        return redirect()->to(url('/'))->with('dataEdit', 'Data Berhasil Di Edit');
-    }
 
 
 }

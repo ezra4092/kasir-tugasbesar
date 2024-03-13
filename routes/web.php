@@ -33,6 +33,9 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/stok/edit/{id}', [Admin::class, 'edit'])->name('stok.edit');
         Route::put('/stok/update/{id}', [Admin::class, 'update'])->name('stok.update');
 
+        Route::get('/user', [Admin::class, 'user'])->name('user');
+        Route::get('/kasir', [Admin::class, 'kasir'])->name('kasir');
+        Route::get('/pembelian', [Admin::class, 'pembelian'])->name('pembelian');
     });
     Route::group(['midddleware' => ['cekUserLogin:petugas']], function () {
     });

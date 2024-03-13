@@ -1,7 +1,7 @@
 @extends('template.main')
 @section('konten')
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Data Petugas</h1>
+    <h1 class="h3 mb-2 text-gray-800">Data Pelanggan    </h1>
     <p class="mb-4">Kedai Dapur Bunda</p>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -15,25 +15,29 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Username</th>
-                            <th>Nama Petugas</th>
-                            <th>Level</th>
+                            <th>Nama Pelanggan</th>
+                            <th>Alamat</th>
+                            <th>Nomor Telepon</th>
+                            <th>Total Harga</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php $no = 1; @endphp
+                        {{-- ini masih ngambil dari tabel user ($stok) --}}
                         @foreach ($stok as $row)
                         <tr>
                             <td width="5%">{{$no++}}</td>
-                            <td>{{$row->username}}</td>
-                            <td>{{$row->nama}}</td>
-                            <td>{{$row->level}}</td>
+                            <td>{{$row->nama_cust}}</td>
+                            <td>{{$row->alamat}}</td>
+                            <td>{{$row->notelp}}</td>
+                            <td>{{$row->total}}</td>
                             <td class="row" width="80%">
                                 <button class="btn btn-sm btn-warning fa-solid fa-pen-to-square mr-2" data-toggle="modal" data-target="#editData{{$row->id}}"></button>
-                                {{-- <form action="{{route(''}}" method="POST"> --}}
+                                <form action="" method="POST">
                                     @csrf
                                     @method('DELETE')
+                                    <a href="/pembelian " class="btn btn-sm btn-success fa-solid fa-cart-shopping mr-1"></a>
                                     <button type="submit" class="btn btn-sm btn-danger fa-solid fa-trash-can mr-2" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"></button>
                                 </form>
                             </td>
@@ -42,33 +46,26 @@
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Edit Data Petugas</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit Cust</h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">x</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        {{-- <form action="{{route('', $row->id)}}" method="POST"> --}}
+                                        <form action="" method="POST">
                                             @csrf
                                             @method('PUT')
                                             <div class="form-group">
-                                                <label for="username">Username</label>
-                                                <input type="input" class="form-control" id="username" name="username" value="{{$row->username}}">
+                                                <label for="nama_cust">Nama Pelanggan</label>
+                                                <input type="input" class="form-control" id="nama_cust" name="nama_cust" value="{{$row->nama_cust}}">
                                             </div>
                                             <div class="form-group">
-                                                <label for="nama">Nama Petugas</label>
-                                                <input type="input" class="form-control" id="nama" name="nama" value="{{$row->nama}}">
+                                                <label for="alamat">Alamat</label>
+                                                <textarea name="alamat" id="alamat" cols="30" rows="2" value="{{$row->alamat}}"></textarea>
                                             </div>
                                             <div class="form-group">
-                                                <label for="password">Password</label>
-                                                <input type="input" class="form-control" id="password" name="password" value="{{$row->password}}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="level">Level</label>
-                                                <select class="form-control" name="level" id="level" value="{{$row->level}}">
-                                                    <option value="admin">Admin</option>
-                                                    <option value="petugas">Petugas</option>
-                                                  </select>
+                                                <label for="notelp">No Telp</label>
+                                                <input type="number" class="form-control" id="notelp" name="notelp" value="{{$row->notelp}}">
                                             </div>
                                     </div>
                                     <div class="modal-footer">
@@ -101,23 +98,16 @@
                 <form action="{{url('')}}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="input" class="form-control" id="username" name="username">
+                        <label for="nama_cust">Nama Pelanggan</label>
+                        <input type="input" class="form-control" id="nama_cust" name="nama_cust" >
                     </div>
                     <div class="form-group">
-                        <label for="nama">Nama Petugas</label>
-                        <input type="input" class="form-control" id="nama" name="nama">
+                        <label for="alamat">Alamat</label>
+                        <textarea name="alamat" id="alamat" cols="30" rows="2" ></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="input" class="form-control" id="password" name="password">
-                    </div>
-                    <div class="form-group">
-                        <label for="level">Level</label>
-                        <select class="form-control" name="level" id="level">
-                            <option value="admin">Admin</option>
-                            <option value="petugas">Petugas</option>
-                          </select>
+                        <label for="notelp">No Telp</label>
+                        <input type="number" class="form-control" id="notelp" name="notelp" >
                     </div>
             </div>
             <div class="modal-footer">
