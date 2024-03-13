@@ -14,8 +14,8 @@ class Login extends Controller
         if ($user = Auth::user()) {
             if  ($user->level == 'admin'){
             return redirect()->intended('admin');
-        } elseif ($user->level == 'siswa'){
-            return redirect()->intended('siswa');
+        } elseif ($user->level == 'petugas'){
+            return redirect()->intended('petugas');
         }
 
     }
@@ -33,8 +33,8 @@ class Login extends Controller
             $user = Auth::user();
             if ($user->level == 'admin'){
                 return redirect()->intended('admin');
-            } elseif ($user->level == 'siswa'){
-                return redirect()->intended('siswa');
+            } elseif ($user->level == 'petugas'){
+                return redirect()->intended('petugas');
             } else {
                 return redirect()->to(url('/'))->with(['error' => true]);
             }
