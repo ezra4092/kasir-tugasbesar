@@ -9,7 +9,7 @@
 </li>
 
 
-<li class="nav-item @if ($title == 'Akun') {{ 'active' }} @endif">
+<li class="nav-item @if ($title == 'Kasir') {{ 'active' }} @endif">
     <a href="{{ url('datapetugas') }}" class="nav-link">
         <i class="fa-solid fa-user" style="color: black;"></i>
         <span class="text-dark">Data Petugas</span>
