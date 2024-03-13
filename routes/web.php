@@ -27,16 +27,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::group(['midddleware' => ['cekUserLogin:admin']], function () {
         Route::resource('admin', Admin::class);
 
-        Route::get('/user', [Admin::class, 'showForm']);
-        Route::post('/update/akun', [Admin::class, 'akun']);
+        Route::get('/stok', [Admin::class, 'index'])->name('stok');
+        Route::post('/stok/save', [Admin::class, 'save']);
+        Route::delete('/stok/delete/{id}', [Admin::class, 'delete'])->name('stok.delete');
+        Route::get('/stok/edit/{id}', [Admin::class, 'edit'])->name('stok.edit');
+        Route::put('/stok/update/{id}', [Admin::class, 'update'])->name('stok.update');
 
-        Route::get('/pembayaran', [Admin::class, 'index'])->name('pembayaran');
-        Route::post('/pembayaran/save', [Admin::class, 'save']);
-
-        Route::delete('/pembayaran/delete/{id}', [Admin::class, 'delete'])->name('pembayaran.delete');
-
-        Route::get('/pembayaran/edit/{id}', [Admin::class, 'edit'])->name('pembayaran.edit');
-        Route::put('/pembayaran/update/{id}', [Admin::class, 'update'])->name('pembayaran.update');
     });
     Route::group(['midddleware' => ['cekUserLogin:petugas']], function () {
     });
