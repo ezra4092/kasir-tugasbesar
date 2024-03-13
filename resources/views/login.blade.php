@@ -36,10 +36,7 @@
                                         <input type="password" name="password" id="password" class="form-control form-control-user" placeholder="Password" required>
                                     </div>
                                     <input type="submit" name="login" value="Login" class="btn btn-success btn-user btn-block fw-bold">
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="" style="color: black;">Forgot the password?</a>
-                                    </div>
+                                    
                                     </form>
                                 </div>
                             </div>

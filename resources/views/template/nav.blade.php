@@ -1,5 +1,5 @@
 @if(Auth::user()->level == 'admin')
-<li class="nav-item @if ($active == 'Kasir')
+<li class="nav-item @if ($active == 'Stok')
     {{'active'}}
 @endif">
     <a class="nav-link" href="{{url('stok')}}">
@@ -9,7 +9,7 @@
 </li>
 
 
-<li class="nav-item @if ($title == 'Kasir') {{ 'active' }} @endif">
+<li class="nav-item @if ($title == 'Stok') {{ 'active' }} @endif">
     <a href="{{ url('datapetugas') }}" class="nav-link">
         <i class="fa-solid fa-user" style="color: black;"></i>
         <span class="text-dark">Data Petugas</span>

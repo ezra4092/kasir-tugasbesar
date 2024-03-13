@@ -12,8 +12,8 @@ class Admin extends Controller
         $stok = StokModel::all();
         $data = [
             'title' => 'Kasir Dapur Bunda',
-            'active' => 'Kasir',
-            'kasir' => $stok
+            'active' => 'Stok',
+            'stok' => $stok
         ];
         return view ('admin.index', $data);
     }
@@ -31,8 +31,8 @@ class Admin extends Controller
     public function edit($id){
         $data = [
             'title' => 'Kasir Dapur Bunda',
-            'active' => 'Kasir',
-            'kasir' => StokModel::find($id)
+            'active' => 'Stok',
+            'stok' => StokModel::find($id)
         ];
         return view('stok.edit', $data);
     }
