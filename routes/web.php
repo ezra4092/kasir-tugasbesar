@@ -18,7 +18,7 @@ use App\Http\Controllers\Admin;
 Route::get('/', function () {
     return view('login');
 })->name('login');
-Route::post('/login/proses', [Login::class, 'proses']);
+Route::post('/login/proses', [Login::class, 'proses'])->name('proses');
 Route::get('/logout', [Login::class, 'logout'])->name('logout');
 
 

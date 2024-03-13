@@ -9,23 +9,23 @@ use Illuminate\Http\Request;
 class Admin extends Controller
 {
     public function index() {
-        $kasir = StokModel::all();
+        $stok = StokModel::all();
         $data = [
             'title' => 'Kasir Dapur Bunda',
             'active' => 'Kasir',
-            'kasir' => $kasir
+            'kasir' => $stok
         ];
         return view ('admin.index', $data);
     }
 
     public function save(Request $request){
         StokModel::create($request->except(['_token', 'simpan']));
-        return redirect()->to(url('pembayaran'))->with('dataTambah', 'Data Berhasil Di Tambah');
+        return redirect()->to(url('stok'))->with('dataTambah', 'Data Berhasil Di Tambah');
     }
 
     public function delete($id){
         StokModel::destroy($id);
-        return redirect()->to(url('pembayaran'))->with('dataDelete', 'Data Berhasil Di Hapus');
+        return redirect()->to(url('stok'))->with('dataDelete', 'Data Berhasil Di Hapus');
     }
 
     public function edit($id){
@@ -34,13 +34,13 @@ class Admin extends Controller
             'active' => 'Kasir',
             'kasir' => StokModel::find($id)
         ];
-        return view('pembayaran.edit', $data);
+        return view('stok.edit', $data);
     }
 
     public function update(Request $request, $id) {
-        $kasir = StokModel::find($id);
-        $kasir->update($request->except(['_token'], '_method'));
+        $stok = StokModel::find($id);
+        $stok->update($request->except(['_token'], '_method'));
 
-        return redirect()->to(url('pembayaran'))->with('dataEdit', 'Data Berhasil Di Edit');
+        return redirect()->to(url('stok'))->with('dataEdit', 'Data Berhasil Di Edit');
     }
 }

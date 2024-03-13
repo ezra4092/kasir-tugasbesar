@@ -27,15 +27,19 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user" action="{{route('stok')}}" method="POST">
+                                    <form class="user" action="{{url('login/proses')}}" method="POST">
                                     @csrf
                                     <div class="form-group">
-                                        <input type="text" name="username" id="username" class="form-control form-control-user" placeholder="Username" autofocus required>
+                                        <input type="text" name="username" id="username" class="form-control form-control-user" placeholder="Username" autofocus required value="{{old('username')}}">
                                     </div>
                                     <div class="form-group">
                                         <input type="password" name="password" id="password" class="form-control form-control-user" placeholder="Password" required>
                                     </div>
                                     <input type="submit" name="login" value="Login" class="btn btn-success btn-user btn-block fw-bold">
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="" style="color: black;">Forgot the password?</a>
+                                    </div>
                                     </form>
                                 </div>
                             </div>
