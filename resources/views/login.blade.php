@@ -19,24 +19,30 @@
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-xl-5 col-lg-12 col-md-9">
-                <div class="card o-hidden border-0 dhadow-lg my-5">
+                <div class="mt-3 text-center">
+                    <img src="template\img\store.png" width="220" height="120">
+                    <h2 style="color: black;">Kasir Dapur Bunda</h2>
+                </div>
+                <div class="card o-hidden border-0 dhadow-lg my-4">
                     <div class="card-body p-0">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Silahkan Login</h1>
                                     </div>
                                     <form class="user" action="{{url('login/proses')}}" method="POST">
                                     @csrf
                                     <div class="form-group">
-                                        <input type="text" name="username" id="username" class="form-control form-control-user" placeholder="Username" autofocus required value="{{old('username')}}">
+                                        <label for="">Username</label>
+                                        <input type="text" name="username" id="username" class="form-control form-control-user" placeholder="" autofocus required value="{{old('username')}}">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="password" id="password" class="form-control form-control-user" placeholder="Password" required>
+                                        <label for="">Password</label>
+                                        <input type="password" name="password" id="password" class="form-control form-control-user" placeholder="" required>
                                     </div>
                                     <input type="submit" name="login" value="Login" class="btn btn-success btn-user btn-block fw-bold">
-                                    
+
                                     </form>
                                 </div>
                             </div>
