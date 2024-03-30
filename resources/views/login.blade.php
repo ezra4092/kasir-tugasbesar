@@ -31,7 +31,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Silahkan Login</h1>
                                     </div>
-                                    <form class="user" action="{{url('login/proses')}}" method="POST">
+                                    <form class="user" action="{{ route('proses') }}" method="POST">
                                     @csrf
                                     <div class="form-group">
                                         <label for="">Username</label>

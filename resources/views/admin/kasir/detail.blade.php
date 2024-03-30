@@ -7,7 +7,7 @@
             <div class="h3 mt-3 mb-2 ml-3 text-gray-800">Detail Pembelian</div>
             <p class="ml-4 mb-0">Kedai Dapur Bunda</p>
             <div class="row justify-content-end">
-                    <p class="font-weight-bold mr-5">Nama Pelanggan</p>
+                    <p class="font-weight-bold mr-5">Nama Pelanggan : </p>
 
               </div>
         </div>
@@ -25,7 +25,7 @@
                     </thead>
                     <tbody>
                         @php $no = 1; @endphp
-                        @foreach ($stok as $row)
+                        @foreach ($data as $row)
                         <tr class="border-bottom mb-5">
                             <td width="5%">{{$no++}}</td>
                             <td>{{$row->nama_barang}}</td>
@@ -92,33 +92,30 @@
                 </button>
             </div>
             <div class="modal-body">
-                    <table class="table table-borderless mb-0">
-                        <thead class="border-bottom">
-                            <tr>
-                                <th>Nama Produk</th>
-                                <th>Harga</th>
-                                <th>Stok</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($stok as $row)
-                            <tr class="border-bottom">
-                                <td>
-                                    <div class="fw-bold">{{ $row->nama_barang}}</div>
-                                </td>
-                                <td class="text-end fw-bold">{{$row->harga}}</td>
-                                <td class="text-end fw-bold">{{$row->jumlah}}</td>
-                                <td class="text-end fw-bold">
-                                  <button class="btn btn-primary btn-sm" {{ $row->jumlah <= 0 ? 'disabled' : '' }} id="pilih" data-bs-toggle="modal" data-bs-target="#tambahModal" data-id="" data-nama="" data-harga="" data-stok="">Pilih</button>
-                              </td>
-                            </tr>
-                            @endforeach
-                          </tbody>
-                    </table>
-                <form action="{{url('')}}" method="POST">
-                    @csrf
-
+                <table class="table table-borderless mb-0">
+                    <thead class="border-bottom">
+                        <tr>
+                             <th>Nama Produk</th>
+                            <th>Harga</th>
+                            <th>Stok</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data as $row)
+                        <tr class="border-bottom">
+                            <td>
+                                <div class="fw-bold">{{ $row->nama_barang}}</div>
+                            </td>
+                            <td class="text-end fw-bold">{{$row->harga}}</td>
+                            <td class="text-end fw-bold">{{$row->jumlah}}</td>
+                            <td class="text-end fw-bold">
+                                <button class="btn btn-primary btn-sm" {{ $row->jumlah <= 0 ? 'disabled' : '' }} id="pilih" data-bs-toggle="modal" data-bs-target="#tambahModal" data-id="" data-nama="" data-harga="" data-stok="">Pilih</button>
+                            </td>
+                        </tr>
+                         @endforeach
+                        </tbody>
+                </table>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>

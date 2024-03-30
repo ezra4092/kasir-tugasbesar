@@ -1,29 +1,23 @@
-<li class="nav-item @if ($active == 'Stok')
-{{'active'}}
-@endif">
-<a class="nav-link" href="{{url('stok')}}">
+<li class="nav-link {{ $title == 'Produk' ? 'active' : '' }}">
+<a class="nav-link ml-3"  href="{{ route('produk') }}">
     <i class="fa-solid fa-marker" style="color: black;"></i>
-    <span class="text-dark">Stok Penjualan</span>
+    <span class="text-dark ml-2">Stok Produk</span>
 </a>
 </li>
 
-<li class="nav-item @if ($active == 'Stok')
-{{'active'}}
-@endif">
-<a class="nav-link" href="{{url('kasir')}}">
+<li class="nav-link {{ $title == 'Penjualan' ? 'active' : '' }}">
+<a class="nav-link ml-3" href="{{route('penjualan')}}">
     <i class="fa-solid fa-cash-register" style="color: black;"></i>
-    <span class="text-dark">Kasir</span>
+    <span class="text-dark ml-2">Kasir</span>
 </a>
 </li>
 
 
 @if(Auth::user()->level == 'admin')
-<li class="nav-item @if ($active == 'Stok')
-{{'active'}}
-@endif">
-<a class="nav-link" href="{{url('user')}}">
+<li class="nav-link {{ $title == 'Produk' ? 'active' : '' }}">
+<a class="nav-link ml-3" href="{{route('user')}}">
     <i class="fa-solid fa-user" style="color: black;"></i>
-    <span class="text-dark">Data Petugas</span>
+    <span class="text-dark ml-2">Data Petugas</span>
 </a>
 </li>
 @endif

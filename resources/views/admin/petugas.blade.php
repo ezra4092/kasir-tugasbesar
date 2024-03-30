@@ -23,7 +23,7 @@
                     </thead>
                     <tbody>
                         @php $no = 1; @endphp
-                        @foreach ($stok as $row)
+                        @foreach ($data as $row)
                         <tr>
                             <td width="5%">{{$no++}}</td>
                             <td>{{$row->username}}</td>
@@ -31,9 +31,9 @@
                             <td>{{$row->level}}</td>
                             <td class="row" width="80%">
                                 <button class="btn btn-sm btn-warning fa-solid fa-pen-to-square mr-2" data-toggle="modal" data-target="#editData{{$row->id}}"></button>
-                                {{-- <form action="{{route(''}}" method="POST"> --}}
+                                <form action="{{ route('user-delete') }}" method="POST">
+                                    <input type="hidden" name="id" value="{{ $row->id}}">
                                     @csrf
-                                    @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger fa-solid fa-trash-can mr-2" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"></button>
                                 </form>
                             </td>
@@ -48,9 +48,9 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        {{-- <form action="{{route('', $row->id)}}" method="POST"> --}}
+                                        <form action="{{ route('user-edit') }}" method="POST">
+                                            <input type="hidden" name="id" value="{{ $row->id}}">
                                             @csrf
-                                            @method('PUT')
                                             <div class="form-group">
                                                 <label for="username">Username</label>
                                                 <input type="input" class="form-control" id="username" name="username" value="{{$row->username}}">
@@ -61,14 +61,21 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="password">Password</label>
-                                                <input type="input" class="form-control" id="password" name="password" value="{{$row->password}}">
+                                                <input type="password" class="form-control" id="password" name="password">
+                                                <div style="color:red; font-size:10px">
+                                                    *tidak perlu diisi jika tidak diganti
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="level">Level</label>
-                                                <select class="form-control" name="level" id="level" value="{{$row->level}}">
-                                                    <option value="admin">Admin</option>
-                                                    <option value="petugas">Petugas</option>
+                                                <select class="form-control" name="level" id="level" required>
+                                                    <option value="null" disabled selected>Pilih Level</option>
+                                                    <option value="Admin">Admin</option>
+                                                    <option value="Petugas">Petugas</option>
                                                   </select>
+                                                  <div style="color:red; font-size:10px">
+                                                    *tidak perlu diubah jika tidak diganti
+                                                </div>
                                             </div>
                                     </div>
                                     <div class="modal-footer">
@@ -98,7 +105,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{url('')}}" method="POST">
+                <form action="{{ route('user-save') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label for="username">Username</label>
@@ -110,7 +117,7 @@
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="input" class="form-control" id="password" name="password">
+                        <input type="password" class="form-control" id="password" name="password">
                     </div>
                     <div class="form-group">
                         <label for="level">Level</label>

@@ -27,7 +27,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fa-regular fa-folder-open" style="color: black;"></i>
                 </div>
-                <div class="sidebar-brand-text text-dark mx-3">INVENTORY</div>
+                <div class="sidebar-brand-text text-dark mx-3">Kasir</div>
             </a>
             <!-- Divider -->
             <hr class="sidebar-divider my-0" style="color: black;">

@@ -24,20 +24,19 @@
                     </thead>
                     <tbody>
                         @php $no = 1; @endphp
-                        {{-- ini masih ngambil dari tabel user ($stok) --}}
-                        @foreach ($stok as $row)
+                        @foreach ($data as $row)
                         <tr>
                             <td width="5%">{{$no++}}</td>
-                            <td>{{$row->nama_cust}}</td>
+                            <td>{{$row->namacust}}</td>
                             <td>{{$row->alamat}}</td>
                             <td>{{$row->notelp}}</td>
                             <td>{{$row->total}}</td>
                             <td class="row" width="80%">
                                 <button class="btn btn-sm btn-warning fa-solid fa-pen-to-square mr-2" data-toggle="modal" data-target="#editData{{$row->id}}"></button>
-                                <form action="" method="POST">
+                                <form action="{{route('cust-delete')}}" method="POST">
+                                    <input type="hidden" name="idpelanggan" value="{{ $row->idpelanggan }}">
                                     @csrf
-                                    @method('DELETE')
-                                    <a href="/pembelian " class="btn btn-sm btn-success fa-solid fa-cart-shopping mr-1"></a>
+                                    <a href="{{route('detail')}}" class="btn btn-sm btn-success fa-solid fa-cart-shopping mr-1"></a>
                                     <button type="submit" class="btn btn-sm btn-danger fa-solid fa-trash-can mr-2" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"></button>
                                 </form>
                             </td>
@@ -52,16 +51,16 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="" method="POST">
+                                        <form action="{{ route('cust-edit') }}" method="POST">
+                                            <input type="hidden" name="idpelanggan" value="{{ $row->idpelanggan }}">
                                             @csrf
-                                            @method('PUT')
                                             <div class="form-group">
-                                                <label for="nama_cust">Nama Pelanggan</label>
-                                                <input type="input" class="form-control" id="nama_cust" name="nama_cust" value="{{$row->nama_cust}}">
+                                                <label for="namacust">Nama Pelanggan</label>
+                                                <input type="input" class="form-control" id="namacust" name="namacust" value="{{$row->namacust}}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="alamat">Alamat</label>
-                                                <textarea name="alamat" id="alamat" cols="30" rows="2" value="{{$row->alamat}}"></textarea>
+                                                <textarea name="alamat" class="form-control" id="alamat" cols="30" rows="2" value="{{$row->alamat}}"></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="notelp">No Telp</label>
@@ -95,15 +94,15 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{url('')}}" method="POST">
+                <form action="{{route('cust-save')}}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="nama_cust">Nama Pelanggan</label>
-                        <input type="input" class="form-control" id="nama_cust" name="nama_cust" >
+                        <label for="namacust">Nama Pelanggan</label>
+                        <input type="input" class="form-control" id="namacust" name="namacust" >
                     </div>
                     <div class="form-group">
                         <label for="alamat">Alamat</label>
-                        <textarea name="alamat" id="alamat" cols="30" rows="2" ></textarea>
+                        <textarea name="alamat" id="alamat" cols="30" rows="2" class="form-control" ></textarea>
                     </div>
                     <div class="form-group">
                         <label for="notelp">No Telp</label>

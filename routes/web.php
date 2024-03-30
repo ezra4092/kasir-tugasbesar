@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Login;
-use App\Http\Controllers\Admin;
-
+use App\Http\Controllers\Loginc;
+use App\Http\Controllers\Produkc;
+use App\Http\Controllers\Userc;
+use App\Http\Controllers\Pelangganc;
+use App\Http\Controllers\Detailc;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,25 +20,26 @@ use App\Http\Controllers\Admin;
 Route::get('/', function () {
     return view('login');
 })->name('login');
-Route::post('/login/proses', [Login::class, 'proses'])->name('proses');
-Route::get('/logout', [Login::class, 'logout'])->name('logout');
+Route::post('/proses', [Loginc::class, 'login'])->name('proses');
 
 
 Route::group(['middleware' => ['auth']], function() {
+    Route::get('/logout', [Loginc::class, 'logout'])->name('logout');
 
-    Route::group(['midddleware' => ['cekUserLogin:admin']], function () {
-        Route::resource('admin', Admin::class);
+    Route::get('/produk', [Produkc::class, 'index'])->name('produk');
+    Route::post('/produk/save', [Produkc::class, 'save'])->name('produk-save');
+    Route::post('/produk/delete', [Produkc::class, 'delete'])->name('produk-delete');
+    Route::post('/produk/edit', [Produkc::class, 'edit'])->name('produk-edit');
 
-        Route::get('/stok', [Admin::class, 'index'])->name('stok');
-        Route::post('/stok/save', [Admin::class, 'save']);
-        Route::delete('/stok/delete/{id}', [Admin::class, 'delete'])->name('stok.delete');
-        Route::get('/stok/edit/{id}', [Admin::class, 'edit'])->name('stok.edit');
-        Route::put('/stok/update/{id}', [Admin::class, 'update'])->name('stok.update');
+    Route::get('/user', [Userc::class, 'index'])->name('user');
+    Route::post('/user/save', [Userc::class, 'save'])->name('user-save');
+    Route::post('/user/delete', [Userc::class, 'delete'])->name('user-delete');
+    Route::post('/user/edit', [Userc::class, 'edit'])->name('user-edit');
 
-        Route::get('/user', [Admin::class, 'user'])->name('user');
-        Route::get('/kasir', [Admin::class, 'kasir'])->name('kasir');
-        Route::get('/pembelian', [Admin::class, 'pembelian'])->name('pembelian');
-    });
-    Route::group(['midddleware' => ['cekUserLogin:petugas']], function () {
-    });
+    Route::get('/penjualan', [Pelangganc::class, 'index'])->name('penjualan');
+    Route::post('/pelanggan/save', [Pelangganc::class, 'save'])->name('cust-save');
+    Route::post('/pelanggan/delete', [Pelangganc::class, 'delete'])->name('cust-delete');
+    Route::post('/pelanggan/edit', [Pelangganc::class, 'edit'])->name('cust-edit');
+
+    Route::get('/detailpenjualan', [Detailc::class, 'index'])->name('detail');
 });

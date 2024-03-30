@@ -1,7 +1,7 @@
 @extends('template.main')
 @section('konten')
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Stok Penjualan</h1>
+    <h1 class="h3 mb-2 text-gray-800">Stok Produk</h1>
     <p class="mb-4">Kedai Dapur Bunda</p>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -15,27 +15,25 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Tanggal</th>
-                            <th>Nama Barang</th>
+                            <th>Nama Produk</th>
                             <th>Harga</th>
-                            <th>Jumlah</th>
+                            <th>Stok</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php $no = 1; @endphp
-                        @foreach ($stok as $row)
+                        @foreach ($data as $row)
                         <tr>
                             <td width="5%">{{$no++}}</td>
-                            <td>{{$row->tgl_bayar}}</td>
-                            <td>{{$row->nama_barang}}</td>
+                            <td>{{$row->namaproduk}}</td>
                             <td>Rp. {{ number_format($row->harga, 0, ',', '.') }}</td>
-                            <td>{{$row->jumlah}}</td>
+                            <td>{{$row->stok}}</td>
                             <td class="row" width="80%">
                                 <button class="btn btn-sm btn-warning fa-solid fa-pen-to-square mr-2" data-toggle="modal" data-target="#editData{{$row->id}}"></button>
-                                <form action="{{route('stok.delete', $row->id)}}" method="POST">
+                                <form action="{{ route('produk-delete') }}" method="POST">
+                                    <input type="hidden" name="idproduk" value="{{ $row->idproduk }}">
                                     @csrf
-                                    @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger fa-solid fa-trash-can mr-2" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"></button>
                                 </form>
                             </td>
@@ -44,30 +42,26 @@
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Edit Stok Penjualan</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit Stok Produk</h5>
                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">x</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{route('stok.update', $row->id)}}" method="POST">
+                                        <form action="{{ route('produk-edit') }}" method="POST">
+                                            <input type="hidden" name="idproduk" value="{{ $row->idproduk }}">
                                             @csrf
-                                            @method('PUT')
                                             <div class="form-group">
-                                                <label for="tgl_bayar">Tanggal</label>
-                                                <input type="date" class="form-control" id="tgl_bayar" name="tgl_bayar" value="{{$row->tgl_bayar}}">
+                                                <label for="namaproduk">Nama Barang</label>
+                                                <input type="input" class="form-control" id="namaproduk" name="namaproduk" value="{{$row->namaproduk}}">
                                             </div>
                                             <div class="form-group">
-                                                <label for="nama_barang">Nama Barang</label>
-                                                <input type="input" class="form-control" id="nama_barang" name="nama_barang" value="{{$row->nama_barang}}">
+                                                <label for="harga">Harga</label>
+                                                <input type="number" class="form-control" id="harga" name="harga" value="{{$row->harga}}">
                                             </div>
                                             <div class="form-group">
-                                                <label for="nama_barang">Nama Barang</label>
-                                                <input type="input" class="form-control" id="nama_barang" name="nama_barang" value="{{$row->nama_barang}}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="jumlah">Jumlah</label>
-                                                <input type="number" class="form-control" id="jumlah" name="jumlah" value="{{$row->jumlah}}">
+                                                <label for="stok">Stok Produk</label>
+                                                <input type="number" class="form-control" id="stok" name="stok" value="{{$row->stok}}">
                                             </div>
                                     </div>
                                     <div class="modal-footer">
@@ -97,23 +91,19 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{url('stok/save')}}" method="POST">
+                <form action="{{ route('produk-save') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="tgl_bayar">Tanggal</label>
-                        <input type="date" class="form-control" id="tgl_bayar" name="tgl_bayar">
-                    </div>
-                    <div class="form-group">
-                        <label for="nama_barang">Nama Barang</label>
-                        <input type="input" class="form-control" id="nama_barang" name="nama_barang">
+                        <label for="namaproduk">Nama Barang</label>
+                        <input type="input" class="form-control" id="namaproduk" name="namaproduk">
                     </div>
                     <div class="form-group">
                         <label for="harga">Harga</label>
                         <input type="number" class="form-control" id="harga" name="harga">
                     </div>
                     <div class="form-group">
-                        <label for="jumlah">Jumlah</label>
-                        <input type="number" class="form-control" id="jumlah" name="jumlah">
+                        <label for="stok">Stok</label>
+                        <input type="number" class="form-control" id="stok" name="stok">
                     </div>
             </div>
             <div class="modal-footer">
