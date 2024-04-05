@@ -36,7 +36,7 @@
                                 <form action="{{route('cust-delete')}}" method="POST">
                                     <input type="hidden" name="idpelanggan" value="{{ $row->idpelanggan }}">
                                     @csrf
-                                    <a href="{{route('detail')}}" class="btn btn-sm btn-success fa-solid fa-cart-shopping mr-1"></a>
+                                    <a href="/detailpenjualan/{{ $row->idpelanggan }}"  class="btn btn-sm btn-success fa-solid fa-cart-shopping mr-1"></a>
                                     <button type="submit" class="btn btn-sm btn-danger fa-solid fa-trash-can mr-2" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"></button>
                                 </form>
                             </td>

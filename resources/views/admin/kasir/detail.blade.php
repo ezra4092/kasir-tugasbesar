@@ -7,7 +7,7 @@
             <div class="h3 mt-3 mb-2 ml-3 text-gray-800">Detail Pembelian</div>
             <p class="ml-4 mb-0">Kedai Dapur Bunda</p>
             <div class="row justify-content-end">
-                    <p class="font-weight-bold mr-5">Nama Pelanggan : </p>
+                    <p class="font-weight-bold mr-5">Nama Pelanggan : {{$pelanggan}}</p>
 
               </div>
         </div>

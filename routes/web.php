@@ -42,4 +42,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/pelanggan/edit', [Pelangganc::class, 'edit'])->name('cust-edit');
 
     Route::get('/detailpenjualan', [Detailc::class, 'index'])->name('detail');
+    Route::get('/detailpenjualan/{id}', [Detailc::class, 'detail']);
 });

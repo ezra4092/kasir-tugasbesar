@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\Pelanggan;
+use App\Models\Penjualan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class Pelangganc extends Controller
 {
@@ -19,6 +21,15 @@ class Pelangganc extends Controller
         $pelanggan->alamat = $request->alamat;
         $pelanggan->notelp = $request->notelp;
         $pelanggan->save();
+
+        $idPelanggan = Pelanggan::where('alamat', $request->alamat)->value('idpelanggan');
+
+        $penjualan = new Penjualan();
+        $penjualan->tanggal = Carbon::now();
+        $penjualan->totalharga = 0;
+        $penjualan->idpelanggan = $idPelanggan;
+        $penjualan->save();
+
         return redirect()->route('penjualan')->with(['tambah' => true, 'message' => 'Data Berhasil ditambah']);
     }
 

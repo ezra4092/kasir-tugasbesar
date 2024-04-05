@@ -35,14 +35,13 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="">Username</label>
-                                        <input type="text" name="username" id="username" class="form-control form-control-user" placeholder="" autofocus required value="{{old('username')}}">
+                                        <input type="text" name="username" id="username" class="form-control form-control-user" placeholder="" autofocus required>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Password</label>
                                         <input type="password" name="password" id="password" class="form-control form-control-user" placeholder="" required>
                                     </div>
-                                    <input type="submit" name="login" value="Login" class="btn btn-success btn-user btn-block fw-bold">
-
+                                    <button class="btn btn-success w-100 mt-3" type="submit" style="border-radius: 50px; padding: 10px 20px;">Login</button>
                                     </form>
                                 </div>
                             </div>
