@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\DetailPenjualan;
 use App\Models\Pelanggan;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
@@ -34,7 +36,14 @@ class Pelangganc extends Controller
     }
 
     public function delete(Request $request){
+        $idpenjualan = Penjualan::where('idpelanggan', $request->idpelanggan)->value('idpenjualan');
+
+        $detailpenjualan = DetailPenjualan::where('idpenjualan', $idpenjualan);
         $pelanggan = Pelanggan::where('idpelanggan', $request->idpelanggan);
+        $penjualan = Penjualan::where('idpelanggan', $request->idpelanggan);
+
+        $detailpenjualan->delete();
+        $penjualan->delete();
         $pelanggan->delete();
         return redirect()->route('penjualan')->with(['delete' => true, 'message' => 'Data Berhasil dihapus']);
     }

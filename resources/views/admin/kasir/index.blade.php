@@ -30,7 +30,7 @@
                             <td>{{$row->namacust}}</td>
                             <td>{{$row->alamat}}</td>
                             <td>{{$row->notelp}}</td>
-                            <td>{{$row->total}}</td>
+                            <td>{{$row->penjualan->sum('totalharga')}}</td>
                             <td class="row" width="80%">
                                 <button class="btn btn-sm btn-warning fa-solid fa-pen-to-square mr-2" data-toggle="modal" data-target="#editData{{$row->id}}"></button>
                                 <form action="{{route('cust-delete')}}" method="POST">

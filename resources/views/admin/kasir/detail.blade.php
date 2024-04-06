@@ -28,16 +28,16 @@
                         @foreach ($data as $row)
                         <tr class="border-bottom mb-5">
                             <td width="5%">{{$no++}}</td>
-                            <td>{{$row->nama_barang}}</td>
-                            <td>{{$row->harga}}</td>
-                            <td>{{$row->jumlah}}</td>
-                            <td>{{$row->total}}</td>
+                            <td>{{$row->produk->namaproduk}}</td>
+                            <td>{{$row->produk->harga}}</td>
+                            <td>{{$row->jumlahproduk}}</td>
+                            <td>{{$row->subtotal}}</td>
                         </tr>
                         @endforeach
                         <tr class="mt-5">
                             <td colspan="2"><button class="btn btn-sm btn-primary mr-5" data-toggle="modal" data-target="#pilihData">Tambah Data</button></td>
                             <td class="text-end pb-0" colspan="2"><div class="h6 fw-700 text-muted">Total Harga:</div></td>
-                            <td class="text-end pb-0"><div class="h6 mb-0 fw-700 text-success">Rp. 12345</div></td>
+                            <td class="text-end pb-0"><div class="h6 mb-0 fw-700 text-success">Rp. {{ $total }}</div></td>
                         </tr>
                             {{-- <div class="modal fade" id="editData{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="editDataLabel{{$row->id}}" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
@@ -102,17 +102,57 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $row)
+                        @foreach ($produk as $row)
                         <tr class="border-bottom">
                             <td>
-                                <div class="fw-bold">{{ $row->nama_barang}}</div>
+                                <div class="fw-bold">{{ $row->namaproduk}}</div>
                             </td>
                             <td class="text-end fw-bold">{{$row->harga}}</td>
-                            <td class="text-end fw-bold">{{$row->jumlah}}</td>
+                            <td class="text-end fw-bold">{{$row->stok}}</td>
                             <td class="text-end fw-bold">
-                                <button class="btn btn-primary btn-sm" {{ $row->jumlah <= 0 ? 'disabled' : '' }} id="pilih" data-bs-toggle="modal" data-bs-target="#tambahModal" data-id="" data-nama="" data-harga="" data-stok="">Pilih</button>
+                                <button class="btn btn-primary btn-sm" {{ $row->stok <= 0 ? 'disabled' : '' }} id="pilih" data-toggle="modal" data-target="#tambahModal{{ $row->idproduk }}" data-id="" data-nama="" data-harga="" data-stok="">Pilih</button>
                             </td>
                         </tr>
+
+                        <div class="modal fade" id="tambahModal{{ $row->idproduk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Tambah Produk</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">x</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{url('detailpenjualan/save')}}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="idproduk" value="{{ $row->idproduk }}">
+                                            <input type="hidden" name="idPelanggan" value="{{ $idPelanggan }}">
+                                            <div class="form-group">
+                                                <label for="nama_cust">Nama Produk</label>
+                                                <input type="input" class="form-control" id="nama_cust" name="nama_cust" value="{{ $row->namaproduk }}" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="notelp">Harga</label>
+                                                <input type="number" class="form-control" name="" value="{{ $row->harga }}" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="notelp">Stok Tersedia</label>
+                                                <input type="number" class="form-control" id="" name="" value="{{ $row->stok }}" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="notelp">Jumlah Yang Dibeli</label>
+                                                <input type="number" class="form-control" name="stok">
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                        <input type="submit" class="btn btn-primary" value="Simpan" name="simpan">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                          @endforeach
                         </tbody>
                 </table>
@@ -126,44 +166,11 @@
     </div>
 </div>
 
-{{-- modal tambah --}}
-<div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">x</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{url('')}}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label for="nama_cust">Nama Pelanggan</label>
-                        <input type="input" class="form-control" id="nama_cust" name="nama_cust" >
-                    </div>
-                    <div class="form-group">
-                        <label for="alamat">Alamat</label>
-                        <textarea name="alamat" id="alamat" cols="30" rows="2" ></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="notelp">No Telp</label>
-                        <input type="number" class="form-control" id="notelp" name="notelp" >
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <input type="submit" class="btn btn-primary" value="Simpan" name="simpan">
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
 @endsection
 @section('js')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
+
     <script>
          $(document).on('click', '#pilih', function(e) {
             var id = $(this).attr("data-id");
@@ -176,7 +183,6 @@
             $('#stok').val(stok);
         });
     </script>
-</script>
 @if ($message = Session::get('dataTambah'))
 <script>
    const Toast = Swal.mixin({
