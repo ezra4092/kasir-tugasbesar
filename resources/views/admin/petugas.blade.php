@@ -6,7 +6,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#tambahData">Tambah Data</button>
+                <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#tambahData"><i class="fa-solid fa-square-plus mt-1 ml-2 mr-2" style="font-size: 20px"></i></button>
             </h6>
         </div>
         <div class="card-body">

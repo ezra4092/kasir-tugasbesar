@@ -1,12 +1,12 @@
 @extends('template.main')
 @section('konten')
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Data Pelanggan    </h1>
+    <h1 class="h3 mb-2 text-gray-800">Data Pelanggan</h1>
     <p class="mb-4">Kedai Dapur Bunda</p>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#tambahData">Tambah Data</button>
+                <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#tambahData"><i class="fa-solid fa-square-plus mt-1 ml-2 mr-2" style="font-size: 20px"></i></button>
             </h6>
         </div>
         <div class="card-body">
@@ -19,7 +19,12 @@
                             <th>Alamat</th>
                             <th>Nomor Telepon</th>
                             <th>Total Harga</th>
+                            @if(Auth::user()->level == 'admin')
                             <th>Aksi</th>
+                            @endif
+                            @if(Auth::user()->level == 'petugas')
+                            <th>Aksi</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -31,15 +36,22 @@
                             <td>{{$row->alamat}}</td>
                             <td>{{$row->notelp}}</td>
                             <td>{{$row->penjualan->sum('totalharga')}}</td>
+                            @if(Auth::user()->level == 'admin')
                             <td class="row" width="80%">
+                                <a href="/detailpenjualan/{{ $row->idpelanggan }}"  class="btn btn-sm btn-success fa-solid fa-cart-shopping mr-1"></a>
                                 <button class="btn btn-sm btn-warning fa-solid fa-pen-to-square mr-2" data-toggle="modal" data-target="#editData{{$row->id}}"></button>
                                 <form action="{{route('cust-delete')}}" method="POST">
                                     <input type="hidden" name="idpelanggan" value="{{ $row->idpelanggan }}">
                                     @csrf
-                                    <a href="/detailpenjualan/{{ $row->idpelanggan }}"  class="btn btn-sm btn-success fa-solid fa-cart-shopping mr-1"></a>
                                     <button type="submit" class="btn btn-sm btn-danger fa-solid fa-trash-can mr-2" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"></button>
                                 </form>
                             </td>
+                            @endif
+                            @if(Auth::user()->level == 'petugas')
+                            <td>
+                                <a href="/detailpenjualan/{{ $row->idpelanggan }}"  class="btn btn-sm btn-success fa-solid fa-cart-shopping mr-1"></a>
+                            </td>
+                            @endif
                         </tr>
                         <div class="modal fade" id="editData{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="editDataLabel{{$row->id}}" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
@@ -68,8 +80,8 @@
                                             </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
                                         </form>
                                     </div>
                                 </div>
@@ -110,7 +122,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                 <input type="submit" class="btn btn-primary" value="Simpan" name="simpan">
                 </form>
             </div>

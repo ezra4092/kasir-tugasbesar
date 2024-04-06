@@ -18,7 +18,9 @@
                             <th>Nama Produk</th>
                             <th>Harga</th>
                             <th>Stok</th>
+                            @if(Auth::user()->level == 'admin')
                             <th>Aksi</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -29,6 +31,7 @@
                             <td>{{$row->namaproduk}}</td>
                             <td>Rp. {{ number_format($row->harga, 0, ',', '.') }}</td>
                             <td>{{$row->stok}}</td>
+                            @if(Auth::user()->level == 'admin')
                             <td class="row" width="80%">
                                 <button class="btn btn-sm btn-warning fa-solid fa-pen-to-square mr-2" data-toggle="modal" data-target="#editData{{$row->id}}"></button>
                                 <form action="{{ route('produk-delete') }}" method="POST">
@@ -37,6 +40,7 @@
                                     <button type="submit" class="btn btn-sm btn-danger fa-solid fa-trash-can mr-2" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"></button>
                                 </form>
                             </td>
+                            @endif
                         </tr>
                         <div class="modal fade" id="editData{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="editDataLabel{{$row->id}}" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
@@ -65,8 +69,8 @@
                                             </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
                                         </form>
                                     </div>
                                 </div>
@@ -107,7 +111,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                 <input type="submit" class="btn btn-primary" value="Simpan" name="simpan">
                 </form>
             </div>

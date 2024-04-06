@@ -25,13 +25,13 @@ class Userc extends Controller
         $user->password = $request->password;
         $user->level = $request->level;
         $user->save();
-        return redirect()->route('user')->with(['tambah' => true, 'message' => 'Akun Berhasil ditambah']);
+        return redirect()->route('user')->with('dataTambah', 'Data Berhasil Di Tambah');
     }
 
     public function delete(Request $request){
         $akun = User::where('id', $request->id);
         $akun->delete();
-        return redirect()->route('user')->with(['delete' => true, 'message' => 'Akun Berhasil dihapus']);
+        return redirect()->route('user')->with('dataHapus', 'Data Berhasil Di Hapus');
     }
 
     public function edit(Request $request){
@@ -55,6 +55,6 @@ class Userc extends Controller
             $akun->password = $request->password;
             $akun->save();
         }
-        return redirect()->route('user')->with(['edit' => true, 'message' => 'Akun Berhasil diedit']);
+        return redirect()->route('user')->with('dataEdit', 'Data Berhasil Di Edit');
     }
 }

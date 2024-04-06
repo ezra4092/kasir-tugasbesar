@@ -32,7 +32,7 @@ class Pelangganc extends Controller
         $penjualan->idpelanggan = $idPelanggan;
         $penjualan->save();
 
-        return redirect()->route('penjualan')->with(['tambah' => true, 'message' => 'Data Berhasil ditambah']);
+        return redirect()->route('penjualan')->with('dataTambah', 'Data Berhasil Di Tambah');
     }
 
     public function delete(Request $request){
@@ -45,7 +45,7 @@ class Pelangganc extends Controller
         $detailpenjualan->delete();
         $penjualan->delete();
         $pelanggan->delete();
-        return redirect()->route('penjualan')->with(['delete' => true, 'message' => 'Data Berhasil dihapus']);
+        return redirect()->route('penjualan')->with('dataHapus', 'Data Berhasil Di Hapus');
     }
 
     public function edit(Request $request){
@@ -57,7 +57,7 @@ class Pelangganc extends Controller
             'notelp' => $request->notelp
         ]);
         $pelanggan->save();
-        return redirect()->route('penjualan')->with(['edit' => true, 'message' => 'Data Berhasil diedit']);
+        return redirect()->route('penjualan')->with('dataEdit', 'Data Berhasil Di Edit');
     }
 
 }

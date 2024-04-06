@@ -19,13 +19,13 @@ class Produkc extends Controller
         $produk->harga = $request->harga;
         $produk->stok = $request->stok;
         $produk->save();
-        return redirect()->route('produk')->with(['tambah' => true, 'message' => 'Data Berhasil ditambah']);
+        return redirect()->route('produk')->with('dataTambah', 'Data Berhasil Di Tambah');
     }
 
     public function delete(Request $request){
         $produk = Produk::where('idproduk', $request->idproduk);
         $produk->delete();
-        return redirect()->route('produk')->with(['delete' => true, 'message' => 'Data Berhasil dihapus']);
+        return redirect()->route('produk')->with('dataHapus', 'Data Berhasil Di Hapus');
     }
 
     public function edit(Request $request){
@@ -37,6 +37,6 @@ class Produkc extends Controller
             'stok' => $request->stok
         ]);
         $produk->save();
-        return redirect()->route('produk')->with(['edit' => true, 'message' => 'Data Berhasil diedit']);
+        return redirect()->route('produk')->with('dataEdit', 'Data Berhasil Di Edit');
     }
 }

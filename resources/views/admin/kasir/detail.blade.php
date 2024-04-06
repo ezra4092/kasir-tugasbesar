@@ -34,47 +34,14 @@
                             <td>{{$row->subtotal}}</td>
                         </tr>
                         @endforeach
-                        <tr class="mt-5">
-                            <td colspan="2"><button class="btn btn-sm btn-primary mr-5" data-toggle="modal" data-target="#pilihData">Tambah Data</button></td>
-                            <td class="text-end pb-0" colspan="2"><div class="h6 fw-700 text-muted">Total Harga:</div></td>
-                            <td class="text-end pb-0"><div class="h6 mb-0 fw-700 text-success">Rp. {{ $total }}</div></td>
-                        </tr>
-                            {{-- <div class="modal fade" id="editData{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="editDataLabel{{$row->id}}" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Edit Cust</h5>
-                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">x</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="" method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <div class="form-group">
-                                                    <label for="nama_cust">Nama Pelanggan</label>
-                                                    <input type="input" class="form-control" id="nama_cust" name="nama_cust" value="{{$row->nama_cust}}">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="alamat">Alamat</label>
-                                                    <textarea name="alamat" id="alamat" cols="30" rows="2" value="{{$row->alamat}}"></textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="notelp">No Telp</label>
-                                                    <input type="number" class="form-control" id="notelp" name="notelp" value="{{$row->notelp}}">
-                                                </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
                     </tbody>
-
+                </table>
+                <table class="table table-borderless">
+                    <tr>
+                        <td><button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#pilihData"><i class="fa-solid fa-square-plus mt-1 ml-2 mr-2" style="font-size: 20px"></i></button></td>
+                        <td class="text-right">Total Harga : </td>
+                        <td class="text-center">Rp. {{ $total }}</td>
+                    </tr>
                 </table>
             </div>
         </div>
