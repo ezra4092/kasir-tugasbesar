@@ -1,4 +1,11 @@
 <li class="nav-link {{ $title == 'Produk' ? 'active' : '' }}">
+    <a class="nav-link ml-3"  href="{{ route('dashboard') }}">
+        <i class="fa-solid fa-layer-group" style="color: black;"></i>
+        <span class="text-dark ml-2">Dashboard</span>
+    </a>
+    </li>
+
+<li class="nav-link {{ $title == 'Produk' ? 'active' : '' }}">
 <a class="nav-link ml-3"  href="{{ route('produk') }}">
     <i class="fa-solid fa-marker" style="color: black;"></i>
     <span class="text-dark ml-2">Stok Produk</span>

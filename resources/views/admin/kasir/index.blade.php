@@ -4,11 +4,9 @@
     <h1 class="h3 mb-2 text-gray-800">Data Pelanggan</h1>
     <p class="mb-4">Kedai Dapur Bunda</p>
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">
-                <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#tambahData"><i class="fa-solid fa-square-plus mt-1 ml-2 mr-2" style="font-size: 20px"></i></button>
-            </h6>
-        </div>
+        <div class="card-header">
+            <button class="btn btn-sm btn-success float-right mr-2" data-toggle="modal" data-target="#tambahData"><i class="fa-solid fa-square-plus mt-1 ml-2 mr-2" style="font-size: 20px"></i></button>
+    </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-sm table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
@@ -35,10 +33,10 @@
                             <td>{{$row->namacust}}</td>
                             <td>{{$row->alamat}}</td>
                             <td>{{$row->notelp}}</td>
-                            <td>{{$row->penjualan->sum('totalharga')}}</td>
+                            <td>Rp. {{number_format($row->penjualan->sum('totalharga'), 0, ',', '.')}}</td>
                             @if(Auth::user()->level == 'admin')
                             <td class="row" width="80%">
-                                <a href="/detailpenjualan/{{ $row->idpelanggan }}"  class="btn btn-sm btn-success fa-solid fa-cart-shopping mr-1"></a>
+                                <a href="/detailpenjualan/{{ $row->idpelanggan }}"  class="btn btn-sm btn-primary fa-solid fa-cart-shopping mr-1"></a>
                                 <button class="btn btn-sm btn-warning fa-solid fa-pen-to-square mr-2" data-toggle="modal" data-target="#editData{{$row->id}}"></button>
                                 <form action="{{route('cust-delete')}}" method="POST">
                                     <input type="hidden" name="idpelanggan" value="{{ $row->idpelanggan }}">
@@ -100,7 +98,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Pelanggan</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">x</span>
                 </button>

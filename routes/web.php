@@ -6,6 +6,9 @@ use App\Http\Controllers\Produkc;
 use App\Http\Controllers\Userc;
 use App\Http\Controllers\Pelangganc;
 use App\Http\Controllers\Detailc;
+use App\Http\Controllers\Dashboardc;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,6 +28,8 @@ Route::post('/proses', [Loginc::class, 'login'])->name('proses');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/logout', [Loginc::class, 'logout'])->name('logout');
+
+    Route::get('/dashboard', [Dashboardc::class, 'index'])->name('dashboard');
 
     Route::get('/produk', [Produkc::class, 'index'])->name('produk');
     Route::post('/produk/save', [Produkc::class, 'save'])->name('produk-save');
