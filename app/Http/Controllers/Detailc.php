@@ -25,7 +25,8 @@ class Detailc extends Controller
             'produk' => Produk::all(),
             'pelanggan' => Pelanggan::where('idpelanggan', $id)->value('namacust'),
             'idPelanggan' => $id,
-            'total' => Penjualan::where('idpenjualan', $idPenjualan)->value('totalharga')
+            'total' => Penjualan::where('idpenjualan', $idPenjualan)->value('totalharga'),
+            'dataPenjualan' => Penjualan::where('idpenjualan', $idPenjualan)->first()
         ];
         return view('admin.kasir.detail', $data);
     }
@@ -35,7 +36,7 @@ class Detailc extends Controller
         $harga = Produk::where('idproduk', $request->idproduk)->value('harga');
         $idPenjualan = Penjualan::where('idpelanggan', $request->idPelanggan)->value('idpenjualan');
 
-        
+
         $detail = new DetailPenjualan();
         $detail->idpenjualan = $idPenjualan;
         $detail->idproduk = $request->idproduk;
@@ -52,5 +53,20 @@ class Detailc extends Controller
         $penjualan->save();
 
         return redirect()->back();
+    }
+
+    public function bayar(Request $request){
+        $penjualan = Penjualan::where('idpenjualan', $request->idPenjualan)->first();
+
+        if($request->bayar < $request->total){
+            return redirect()->back()->with([
+                'error' => true
+            ]);
+        }
+
+        $penjualan->jumPembayaran = $request->bayar;
+        $penjualan->save();
+
+        return redirect('/detailpenjualan/'.$penjualan->pelanggan->idpelanggan);
     }
 }

@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <div class="h3 mt-3 mb-2 ml-3 text-gray-800">Detail Pembelian</div>
+            <div class="h3 mt-3 mb-2 ml-3 text-gray-800">Detail Penjualan</div>
             <p class="ml-4 mb-0">Kedai Dapur Bunda</p>
             <div class="row justify-content-end">
                     <p class="font-weight-bold mr-5">Nama Pelanggan : {{$pelanggan}}</p>
@@ -54,15 +54,15 @@
                         <table class="table table-sm table-borderless">
                             <tr>
                                 <td class="text-right">Total Harga : </td>
-                                <td>Rp. {{number_format( $total, 0, ',', '.')  }}</td>
+                                <td class="text-success fw-bold">Rp. {{number_format( $total, 0, ',', '.')  }}</td>
                             </tr>
                             <tr>
                                 <td class="text-right">Bayar : </td>
-                                <td>Rp. </td>
+                                <td class="text-primary">Rp. {{number_format( $dataPenjualan->jumPembayaran, 0, ',', '.')}}</td>
                             </tr>
                             <tr>
                                 <td class="text-right">Kembalian : </td>
-                                <td>Rp. </td>
+                                <td class="text-danger">Rp. {{$dataPenjualan->jumPembayaran == null ? '0' : number_format( $dataPenjualan->jumPembayaran - $total, 0, ',', '.')}}</td>
                             </tr>
                         </table>
                     </div>
@@ -83,22 +83,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
+                <form action="{{route('bayar')}}" method="POST">
                     @csrf
-                    {{-- <input type="hidden" name="idproduk" value="{{ $row->idproduk }}">
-                    <input type="hidden" name="idPelanggan" value="{{ $idPelanggan }}"> --}}
+                    <input type="hidden" name="idPenjualan" value="{{$dataPenjualan->idpenjualan}}">
+                    <input type="hidden" name="total" value="{{$total}}">
                     <div class="form-group">
                         <label for="total">Total Harga</label>
-                        <input type="input" class="form-control" id="total" name="total" value="{{ number_format($total, 0, ',', '.') }}" readonly>
+                        <input type="input" class="form-control" id="total" name="total" value="{{ number_format($total, 0, ',', '.') }}" disabled>
                     </div>
                     <div class="form-group">
                         <label for="bayar">Bayar</label>
-                        <input type="input" class="form-control" name="bayar">
+                        <input type="number" class="form-control" name="bayar" value="{{$dataPenjualan->jumPembayaran == null ? '0' : $dataPenjualan->jumPembayaran}}">
                     </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <input type="submit" class="btn btn-primary" value="Simpan" name="simpan">
+                <input type="submit" class="btn btn-primary" value="Bayar" name="simpan">
                 </form>
             </div>
         </div>
@@ -183,7 +183,6 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <input type="submit" class="btn btn-primary" value="Simpan" name="simpan">
                 </form>
             </div>
         </div>
@@ -207,7 +206,7 @@
             $('#stok').val(stok);
         });
     </script>
-@if ($message = Session::get('dataTambah'))
+@if(Session::get('error'))
 <script>
    const Toast = Swal.mixin({
         toast: true,
@@ -221,72 +220,12 @@
         }
     })
     Toast.fire({
-        icon: 'success',
-        title: 'Data berhasil ditambahkan'
-    });
-</script>
-@endif
-@if ($message = Session::get('dataDelete'))
-<script>
-   const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer);
-            toast.addEventListener('mouseleave', Swal.resumeTimer);
-        }
-    })
-    Toast.fire({
-        icon: 'success',
-        title: 'Data berhasil dihapus'
-    });
-</script>
-@endif
-@if ($message = Session::get('dataEdit'))
-<script>
-   const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer);
-            toast.addEventListener('mouseleave', Swal.resumeTimer);
-        }
-    })
-    Toast.fire({
-        icon: 'success',
-        title: 'Data berhasil diedit'
+        icon: 'error',
+        title: 'Tidak Cukup'
     });
 </script>
 @endif
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-{{-- <script>
-    function printTable(row) {
-        var nama = row.querySelector('td:nth-child(2)').innerText.trim();
-        var tgl_bayar = row.querySelector('td:nth-child(3)').innerText.trim();
-        var jumlah = row.querySelector('td:nth-child(4)').innerText.trim();
-
-        var newWin = window.open('', 'Print-Window');
-        newWin.document.open();
-        newWin.document.write('<html><head><title>Laporan</title></head><body>');
-
-        newWin.document.write('<h1>Laporan Pembayaran SPP</h1>');
-        newWin.document.write('<p>Nama Siswa         : ' + nama + '</p>');
-        newWin.document.write('<p>Tanggal Pembayaran : ' + tgl_bayar + '</p>');
-        newWin.document.write('<p>Jumlah             : ' + jumlah + '</p>');
-        newWin.document.write('<hr>');
-
-        newWin.document.write('</body></html>');
-        newWin.document.close();
-        newWin.print();
-        setTimeout(function () { newWin.close(); }, 10);
-    }
-</script> --}}
 
 @endsection

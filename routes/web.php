@@ -48,5 +48,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/detailpenjualan', [Detailc::class, 'index'])->name('detail');
     Route::get('/detailpenjualan/{id}', [Detailc::class, 'detail']);
+
+    Route::post('/detailpenjualan/bayar/', [Detailc::class, 'bayar'])->name('bayar');
+
     Route::post('/detailpenjualan/save', [Detailc::class, 'save']);
 });
